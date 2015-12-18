@@ -21,11 +21,14 @@ class GitlabBot(Bot):
 
     def text_recv(self, txt, chatid):
         ''' registering chats '''
-        if txt.strip() == AUTHMSG:
+        txt = txt.strip()
+        if txt.startswith('/'):
+            txt = txt[1:]
+        if txt == AUTHMSG:
             self.reply(chatid, "OK")
             self.chats[chatid] = True
             open('chats', 'w').write(json.dumps(self.chats))
-        elif txt.strip() == 'shutupbot':
+        elif txt == 'shutupbot':
             del self.chats[chatid]
             self.reply(chatid, "OK, take it easy\nbye.")
             open('chats', 'w').write(json.dumps(self.chats))

@@ -22,6 +22,9 @@ and then copy the token to the token file.
 Q. How can I stop receiving messages
 R. Write "shutupbot" in your conversation and the bot won't talk to you anymore
 
+Q. How can I enable the bot in group chats
+R. Write /AUTHMSG instead of AUTHMSG
+
 # Interesting files
 
  * chats, the json with all the chats to send notifications
