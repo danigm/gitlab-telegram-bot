@@ -8,6 +8,9 @@ https://core.telegram.org/bots
 Create a new bot https://core.telegram.org/bots#create-a-new-bot
 and then copy the token to the token file.
 
+# Requirements 
+Only work with python3
+
 # How to use
 
 1. Change the app.py AUTHMSG to some secret
