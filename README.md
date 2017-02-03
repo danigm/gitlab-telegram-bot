@@ -13,11 +13,11 @@ Only work with python3
 
 # How to use
 
-1. Change the app.py AUTHMSG to some secret
+1. Change the authmsg file with some secret keyworld
 1. Run the app.py in your server
 1. Create a webhook in your gitlab proyect that points to
    http://yourserver:10111/
-1. Talk to your bot and write only the AUTHMSG
+1. Talk to your bot and write only the keyworld
 1. You will receive each event in your repo
 
 # FAQ
@@ -26,7 +26,7 @@ Only work with python3
 R. Write "shutupbot" in your conversation and the bot won't talk to you anymore
 
 ## Q. How can I enable the bot in group chats
-R. Write /AUTHMSG instead of AUTHMSG
+R. Write /keyworld instead of keyworld
 
 # Interesting files
 
