@@ -5,12 +5,13 @@ from flask import jsonify
 from bot import Bot
 app = Flask(__name__)
 
-
-AUTHMSG = 'XXXXXXXXXXXXXXXXXXXXXXX'
-
-
 class GitlabBot(Bot):
     def __init__(self):
+        try:
+            self.authmsg = open('authmsg').read()
+        except:
+            raise Exception("The authorization messsage file is invalid")
+
         super(GitlabBot, self).__init__()
         self.chats = {}
         try:
@@ -24,7 +25,7 @@ class GitlabBot(Bot):
         txt = txt.strip()
         if txt.startswith('/'):
             txt = txt[1:]
-        if txt == AUTHMSG:
+        if txt == self.authmsg:
             self.reply(chatid, "OK")
             self.chats[chatid] = True
             open('chats', 'w').write(json.dumps(self.chats))
