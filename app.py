@@ -20,14 +20,19 @@ class GitlabBot(Bot):
         except:
             open('chats', 'w').write(json.dumps(self.chats))
 
+        self.send_to_all('Hi !')
+
     def text_recv(self, txt, chatid):
         ''' registering chats '''
         txt = txt.strip()
         if txt.startswith('/'):
             txt = txt[1:]
         if txt == self.authmsg:
-            self.reply(chatid, "OK")
-            self.chats[chatid] = True
+            if chatid in self.chats:
+                self.reply(chatid, "\U0001F60E  boy, you already got the power.")
+            else:
+                self.reply(chatid, "\U0001F60E  Ok boy, you got the power !")
+                self.chats[chatid] = True
             open('chats', 'w').write(json.dumps(self.chats))
         elif txt == 'shutupbot':
             del self.chats[chatid]
