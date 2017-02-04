@@ -60,7 +60,7 @@ def webhook():
     for commit in data['commits']:
         msg = msg + '----------------------------------------------------------------\n'
         msg = msg + commit['message'].rstrip()
-        msg = msg + '\n' + commit['url'] + '\n'
+        msg = msg + '\n' + commit['url'].replace("_","\_") + '\n'
     msg = msg + '----------------------------------------------------------------\n'
 
     b.send_to_all(msg)
