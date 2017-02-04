@@ -20,21 +20,26 @@ class GitlabBot(Bot):
         except:
             open('chats', 'w').write(json.dumps(self.chats))
 
+        self.send_to_all('Hi !')
+
     def text_recv(self, txt, chatid):
         ''' registering chats '''
         txt = txt.strip()
         if txt.startswith('/'):
             txt = txt[1:]
         if txt == self.authmsg:
-            self.reply(chatid, "OK")
-            self.chats[chatid] = True
+            if chatid in self.chats:
+                self.reply(chatid, "\U0001F60E  boy, you already got the power.")
+            else:
+                self.reply(chatid, "\U0001F60E  Ok boy, you got the power !")
+                self.chats[chatid] = True
             open('chats', 'w').write(json.dumps(self.chats))
         elif txt == 'shutupbot':
             del self.chats[chatid]
-            self.reply(chatid, "OK, take it easy\nbye.")
+            self.reply(chatid, "\U0001F63F Ok, take it easy\nbye.")
             open('chats', 'w').write(json.dumps(self.chats))
         else:
-            self.reply(chatid, "I won't talk to you.")
+            self.reply(chatid, "\U0001F612 I won't talk to you.")
 
     def send_to_all(self, msg):
         for c in self.chats:
@@ -47,17 +52,16 @@ b = GitlabBot()
 @app.route("/", methods=['GET', 'POST'])
 def webhook():
     data = request.json
-    ok = data['object_kind']
-    repo = data['repository']['homepage']
-    name = data['repository']['name']
-    try:
-        user = data['user_name']
-    except:
-        user = data['user']['username']
 
-    msg = '@%s: new %s in %s\n%s' % (user, ok, name, repo)
+    msg = '*{0} ({1}) - {2} new commits*\n'\
+        .format(data['project']['name'],data['project']['default_branch'], data['total_commits_count'])
+    for commit in data['commits']:
+        msg = msg + '----------------------------------------------------------------\n'
+        msg = msg + commit['message'].rstrip()
+        msg = msg + '\n' + commit['url'] + '\n'
+    msg = msg + '----------------------------------------------------------------\n'
+
     b.send_to_all(msg)
-
     return jsonify({'status': 'ok'})
 
 
