@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json
 from flask import Flask
 from flask import request
@@ -28,12 +30,12 @@ class GitlabBot(Bot):
         if txt.startswith('/'):
             txt = txt[1:]
         if txt == self.authmsg:
-            if chatid in self.chats:
+            if str(chatid) in self.chats:
                 self.reply(chatid, "\U0001F60E  boy, you already got the power.")
             else:
                 self.reply(chatid, "\U0001F60E  Ok boy, you got the power !")
                 self.chats[chatid] = True
-            open('chats', 'w').write(json.dumps(self.chats))
+                open('chats', 'w').write(json.dumps(self.chats))
         elif txt == 'shutupbot':
             del self.chats[chatid]
             self.reply(chatid, "\U0001F63F Ok, take it easy\nbye.")
@@ -58,7 +60,7 @@ def webhook():
     for commit in data['commits']:
         msg = msg + '----------------------------------------------------------------\n'
         msg = msg + commit['message'].rstrip()
-        msg = msg + '\n' + commit['url'] + '\n'
+        msg = msg + '\n' + commit['url'].replace("_","\_") + '\n'
     msg = msg + '----------------------------------------------------------------\n'
 
     b.send_to_all(msg)
