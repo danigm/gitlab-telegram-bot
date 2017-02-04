@@ -37,7 +37,14 @@ class Bot:
         data = {'offset': self.offset}
         r = self.botq('getUpdates', data)
         for up in r['result']:
-            self.msg_recv(up['message'])
+            if 'message' in up:
+                self.msg_recv(up['message'])
+            elif 'edited_message' in up:
+                self.msg_recv(up['edited_message'])
+            else:
+                # not a valid message
+                break
+
             try:
                 txt = up['message']['text']
                 self.text_recv(txt, self.get_to_from_msg(up['message']))
