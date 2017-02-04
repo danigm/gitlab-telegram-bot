@@ -35,7 +35,7 @@ class GitlabBot(Bot):
             else:
                 self.reply(chatid, "\U0001F60E  Ok boy, you got the power !")
                 self.chats[chatid] = True
-            open('chats', 'w').write(json.dumps(self.chats))
+                open('chats', 'w').write(json.dumps(self.chats))
         elif txt == 'shutupbot':
             del self.chats[chatid]
             self.reply(chatid, "\U0001F63F Ok, take it easy\nbye.")
