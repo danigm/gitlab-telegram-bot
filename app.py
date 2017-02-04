@@ -28,7 +28,7 @@ class GitlabBot(Bot):
         if txt.startswith('/'):
             txt = txt[1:]
         if txt == self.authmsg:
-            if chatid in self.chats:
+            if str(chatid) in self.chats:
                 self.reply(chatid, "\U0001F60E  boy, you already got the power.")
             else:
                 self.reply(chatid, "\U0001F60E  Ok boy, you got the power !")
