@@ -52,17 +52,16 @@ b = GitlabBot()
 @app.route("/", methods=['GET', 'POST'])
 def webhook():
     data = request.json
-    ok = data['object_kind']
-    repo = data['repository']['homepage']
-    name = data['repository']['name']
-    try:
-        user = data['user_name']
-    except:
-        user = data['user']['username']
 
-    msg = '@%s: new %s in %s\n%s' % (user, ok, name, repo)
+    msg = '*{0} ({1}) - {2} new commits*\n'\
+        .format(data['project']['name'],data['project']['default_branch'], data['total_commits_count'])
+    for commit in data['commits']:
+        msg = msg + '----------------------------------------------------------------\n'
+        msg = msg + commit['message'].rstrip()
+        msg = msg + '\n' + commit['url'] + '\n'
+    msg = msg + '----------------------------------------------------------------\n'
+
     b.send_to_all(msg)
-
     return jsonify({'status': 'ok'})
 
 
