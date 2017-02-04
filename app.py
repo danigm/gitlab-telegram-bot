@@ -36,10 +36,10 @@ class GitlabBot(Bot):
             open('chats', 'w').write(json.dumps(self.chats))
         elif txt == 'shutupbot':
             del self.chats[chatid]
-            self.reply(chatid, "OK, take it easy\nbye.")
+            self.reply(chatid, "\U0001F63F Ok, take it easy\nbye.")
             open('chats', 'w').write(json.dumps(self.chats))
         else:
-            self.reply(chatid, "I won't talk to you.")
+            self.reply(chatid, "\U0001F612 I won't talk to you.")
 
     def send_to_all(self, msg):
         for c in self.chats:
