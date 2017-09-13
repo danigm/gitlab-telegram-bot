@@ -10,7 +10,7 @@ app = Flask(__name__)
 class GitlabBot(Bot):
     def __init__(self):
         try:
-            self.authmsg = open('authmsg').read()
+            self.authmsg = open('authmsg').read().strip()
         except:
             raise Exception("The authorization messsage file is invalid")
 
