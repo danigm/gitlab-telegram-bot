@@ -15,7 +15,7 @@ Only work with python3
 
 1. Change the authmsg file with some secret keyworld
 1. Run the app.py in your server
-1. Create a webhook in your gitlab proyect that points to
+1. Create a webhook in your gitlab project that points to
    http://yourserver:10111/
 1. Talk to your bot and write only the keyworld
 1. You will receive each event in your repo
