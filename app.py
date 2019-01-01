@@ -92,13 +92,29 @@ def generatePushMsg(data):
 def generateIssueMsg(data):
     action = data['object_attributes']['action']
     if action == 'open':
-        msg = '*{0} new Issue for {1}*\n'\
-            .format(data['project']['name'], data['assignee']['name'])
+        assignees = ''
+        for assignee in data['assignees']:
+            assignees += assignee['name'] + ' '
+        msg = '*{0}* new issue for *{1}*:\n'\
+            .format(data['project']['name'], assignees)
+    elif action == 'reopen':
+        assignees = ''
+        for assignee in data['assignees']:
+            assignees += assignee['name'] + ' '
+        msg = '*{0}* issue re-opened for *{1}*:\n'\
+            .format(data['project']['name'], assignees)
     elif action == 'close':
-        msg = '*{0} Issue closed by {1}*\n'\
+        msg = '*{0}* issue closed by *{1}*:\n'\
             .format(data['project']['name'], data['user']['name'])
-    msg = msg + '*{0}*'.format(data['object_attributes']['title'])
-    msg = msg + 'see {0} for further details'.format(data['object_attributes']['url'])
+    elif action == 'update':
+        assignees = ''
+        for assignee in data['assignees']:
+            assignees += assignee['name'] + ' '
+        msg = '*{0}* issue assigned to *{1}*:\n'\
+            .format(data['project']['name'], assignees)
+
+    msg = msg + '[{0}]({1})'\
+        .format(data['object_attributes']['title'], data['object_attributes']['url'])
     return msg
 
 
