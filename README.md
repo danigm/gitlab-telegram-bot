@@ -33,3 +33,13 @@ R. Write /keyworld instead of keyworld
  * chats, the json with all the chats to send notifications
  * token, the bot token
  * offset, the last msg id received from telegram api
+
+# Docker
+## build
+```shell
+$ docker build -t bot .
+```
+## run
+```shell
+$ docker run -d -p 10111:10111 --name bot -e AUTHMSG="XXX" -e TOKEN="XXX:XXX" bot
+```
