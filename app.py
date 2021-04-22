@@ -93,13 +93,13 @@ def generateIssueMsg(data):
     action = data['object_attributes']['action']
     if action == 'open':
         assignees = ''
-        for assignee in data['assignees']:
+        for assignee in data.get('assignees', []):
             assignees += assignee['name'] + ' '
         msg = '*{0}* new issue for *{1}*:\n'\
             .format(data['project']['name'], assignees)
     elif action == 'reopen':
         assignees = ''
-        for assignee in data['assignees']:
+        for assignee in data.get('assignees', []):
             assignees += assignee['name'] + ' '
         msg = '*{0}* issue re-opened for *{1}*:\n'\
             .format(data['project']['name'], assignees)
@@ -108,7 +108,7 @@ def generateIssueMsg(data):
             .format(data['project']['name'], data['user']['name'])
     elif action == 'update':
         assignees = ''
-        for assignee in data['assignees']:
+        for assignee in data.get('assignees', []):
             assignees += assignee['name'] + ' '
         msg = '*{0}* issue assigned to *{1}*:\n'\
             .format(data['project']['name'], assignees)
